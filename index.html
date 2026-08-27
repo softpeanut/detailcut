@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="긴 상품 상세 이미지를 내용이 적은 지점에서 나눠 JPG와 ZIP으로 받는 로컬 브라우저 도구입니다.">
+  <link rel="canonical" href="https://softpeanut.github.io/detailcut/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DetailCut — 긴 상세페이지, 끊김 적게 나누기">
+  <meta property="og:description" content="긴 상품 상세 이미지를 조용한 경계에서 나눠 번호순 JPG ZIP으로 받으세요. 파일은 서버로 전송되지 않습니다.">
+  <meta property="og:url" content="https://softpeanut.github.io/detailcut/">
+  <title>DetailCut — 긴 상세페이지, 끊김 적게 나누기</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <p class="eyebrow">LOCAL-ONLY DETAIL IMAGE SLICER</p>
+    <h1>긴 상세페이지를<br><em>아무 데서나 자르지 마세요.</em></h1>
+    <p class="lead">목표 높이 근처의 조용한 가로선을 찾아, 긴 이미지를 순서대로 나누고 한 ZIP으로 정리합니다. 이미지가 서버로 전송되는 경로는 없습니다.</p>
+    <a class="button" href="#tool">이미지 1개 무료로 자르기</a>
+  </header>
+
+  <main>
+    <section class="proof" aria-label="제품 특징">
+      <span>파일 업로드 없음</span><span>빈틈·중복 없는 분할</span><span>번호순 ZIP</span>
+    </section>
+
+    <section id="tool" class="workspace">
+      <div class="panel settings">
+        <div class="section-title"><p class="eyebrow dark">01 · 설정</p><span id="edition" class="edition"></span></div>
+        <label>파일 이름
+          <input id="name" value="my-detail-page" maxlength="60" autocomplete="off">
+        </label>
+        <div class="grid">
+          <label>출력 가로(px)
+            <input id="width" type="number" min="320" max="2400" step="1" value="860">
+          </label>
+          <label>조각 최대 높이(px)
+            <input id="height" type="number" min="800" max="10000" step="1" value="5000">
+          </label>
+        </div>
+        <label>JPG 품질 <output id="quality-value">90%</output>
+          <input id="quality" type="range" min="60" max="100" value="90">
+        </label>
+        <label class="toggle"><input id="smart-cut" type="checkbox" checked><span><b>조용한 지점 찾기</b><small>최대 높이 전 30% 구간에서 경계가 적은 행을 고릅니다.</small></span></label>
+        <details><summary>무엇을 보장하나요?</summary><p>결과 조각의 행은 순서대로 이어지고 겹치거나 비지 않습니다. 다만 자동 분할은 이미지의 의미를 이해하지 않으므로, 업로드 전에 결과를 직접 확인해야 합니다.</p></details>
+      </div>
+
+      <div class="panel input-panel">
+        <p class="eyebrow dark">02 · 이미지</p>
+        <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="긴 상세 이미지 선택">
+          <input id="files" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+          <strong>긴 이미지를 놓으세요</strong>
+          <span>JPG · PNG · WebP · 파일당 40MB 이하</span>
+          <button id="browse" class="button small" type="button">파일 선택</button>
+        </div>
+        <div id="queue" class="queue" aria-live="polite"></div>
+        <button id="export" class="button export" type="button" disabled>JPG ZIP 만들기</button>
+        <p id="status" class="status" role="status"></p>
+      </div>
+    </section>
+
+    <section class="explain">
+      <div><p class="eyebrow dark">왜 필요한가</p><h2>긴 원본 하나가<br>바로 올릴 파일 묶음으로.</h2></div>
+      <ol><li>가로 폭을 한 번 맞춥니다.</li><li>콘텐츠 경계가 적은 행을 찾습니다.</li><li>01, 02, 03 순서의 JPG를 ZIP으로 받습니다.</li></ol>
+    </section>
+
+    <section class="pricing">
+      <div><p class="eyebrow">BATCH EDITION</p><h2>상품이 여러 개라면</h2><p>Pro 오프라인 버전은 한 번에 최대 20개 이미지, 파일별 폴더 분리, 동일한 스마트 분할을 제공합니다. 서버·API·월 구독은 없습니다.</p></div>
+      <div class="price"><small>출시가 · 1회 구매</small><strong>₩12,900</strong><p>현재 결제 연결 준비 중입니다. 결제가 열리기 전에는 주문이나 금액을 받지 않습니다.</p><button type="button" disabled>결제 준비 중</button></div>
+    </section>
+  </main>
+
+  <footer>DetailCut은 특정 쇼핑몰의 공식·제휴 도구가 아닙니다. 출력 규격과 결과는 게시 전에 직접 확인하세요.</footer>
+  <script src="core.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
