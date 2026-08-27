@@ -9,9 +9,18 @@ body:
       value: |
         이 이슈는 공개됩니다. 이메일, 전화번호, 쇼핑몰·고객·주문 정보, 이미지나 비공개 링크를 적지 마세요. GitHub 사용자명은 이슈 작성자 정보로만 사용합니다.
 
-        This request starts a scope check; it is not payment. After availability is confirmed, the seller posts an exact sats quote valid for 30 minutes. Do not pay before accepting that quote. The licensed ZIP is delivered through a buyer-only private GitHub repository after payment is verified.
+        This request starts a scope check; it is not payment. After availability is confirmed, the seller posts an issue-bound, single-use Lightning invoice matching the selected tier and valid for 30 minutes. Do not pay before accepting the written terms. The licensed ZIP is delivered through a buyer-only private GitHub repository after payment is verified.
 
         Do not include email, contact, store, customer, order, image, payment proof, or private-link information. Terms: https://softpeanut.github.io/detailcut/terms-en.html
+  - type: dropdown
+    id: license-tier
+    attributes:
+      label: 라이선스 등급 / License tier
+      options:
+        - 개인 — 15,000 sats — 사용자 1명 / Personal — one user
+        - 팀 — 100,000 sats — 하나의 법인 조직 안에서 기명 사용자 최대 10명 / Team — up to 10 named users in one legal organization
+    validations:
+      required: true
   - type: dropdown
     id: batch-size
     attributes:
@@ -26,9 +35,9 @@ body:
   - type: dropdown
     id: order-intent
     attributes:
-      label: ₩12,900 출시가 주문 상태 / KRW 12,900 launch-price order status
+      label: 주문 상태 / Order status
       options:
-        - 정확한 sats 견적을 받고 구매하고 싶습니다 / Ready to receive an exact sats quote
+        - 선택한 등급의 이슈 전용 인보이스를 받고 구매하고 싶습니다 / Ready to receive the issue-bound invoice
         - 결제·전달·환불 조건을 먼저 확인하고 싶습니다 / Need terms clarified first
     validations:
       required: true
@@ -37,7 +46,7 @@ body:
     attributes:
       label: 확인
       options:
-        - label: 이 요청 자체는 결제가 아니며, 견적을 수락하기 전 송금하지 않겠습니다.
+        - label: 이 요청 자체는 결제가 아니며, 선택한 등급의 이슈 전용 인보이스와 조건을 수락하기 전 송금하지 않겠습니다.
           required: true
         - label: 구매자 전용 비공개 GitHub 저장소 초대로 파일을 전달받는 데 동의합니다.
           required: true
