@@ -50,3 +50,16 @@ test("Korean landing page exposes the exact use case to searchers", () => {
   assert.match(html, /"featureList"/);
   assert.match(sitemap, /<lastmod>2026-08-27<\/lastmod>/);
 });
+
+test("Pro request measures purchase intent without pretending to take payment", () => {
+  const korean = readFileSync("index.html", "utf8");
+  const english = readFileSync("en.html", "utf8");
+  const issueTemplate = readFileSync(".github/ISSUE_TEMPLATE/pro-interest.yml", "utf8");
+  assert.match(korean, />Pro 라이선스 요청<\/a>/);
+  assert.match(korean, /주문이나 금액을 받지 않습니다/);
+  assert.match(english, />Request a Pro license<\/a>/);
+  assert.match(english, /no order or payment is accepted yet/);
+  assert.match(issueTemplate, /id: purchase-intent/);
+  assert.match(issueTemplate, /Checkout is not live yet/);
+  assert.doesNotMatch(issueTemplate, /type: textarea/);
+});

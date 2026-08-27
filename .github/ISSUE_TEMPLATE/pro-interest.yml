@@ -1,13 +1,15 @@
-name: DetailCut Pro 출시 알림 요청
-description: 개인정보 없이 Pro 구매 의향을 남깁니다.
-title: "[Pro 관심] 출시 알림 요청"
+name: DetailCut Pro 라이선스 요청 / Pro license request
+description: 개인정보 없이 Pro 구매 의향과 필요한 처리량을 남깁니다.
+title: "[Pro 라이선스 요청]"
 labels:
   - pro-interest
 body:
   - type: markdown
     attributes:
       value: |
-        관심을 남겨주셔서 감사합니다. 이 이슈는 공개됩니다. 이메일, 전화번호, 쇼핑몰 정보 등 개인정보를 적지 마세요.
+        이 이슈는 공개됩니다. 이메일, 전화번호, 쇼핑몰·고객·주문 정보, 이미지나 비공개 링크를 적지 마세요.
+
+        Checkout is not live yet, so this request does not create an order or payment. Do not include email, contact, store, customer, order, image, or private-link information.
   - type: dropdown
     id: batch-size
     attributes:
@@ -19,10 +21,20 @@ body:
         - 20개 초과
     validations:
       required: true
+  - type: dropdown
+    id: purchase-intent
+    attributes:
+      label: ₩12,900 1회 구매 의향 / One-time purchase intent
+      options:
+        - 결제가 열리면 구매할 의향이 있습니다 / Likely to buy when checkout opens
+        - 결제·환불 조건을 먼저 확인하고 싶습니다 / Need payment and refund terms first
+        - 기능만 관심 있습니다 / Feature interest only
+    validations:
+      required: true
   - type: checkboxes
     id: intent
     attributes:
       label: 확인
       options:
-        - label: 결제가 열리면 공개 GitHub 알림으로 확인하겠습니다. 개인정보는 작성하지 않았습니다.
+        - label: 아직 주문·결제가 아니라는 점을 이해했고, 개인정보나 비공개 자료를 작성하지 않았습니다.
           required: true
