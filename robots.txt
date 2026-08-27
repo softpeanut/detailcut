@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://softpeanut.github.io/detailcut/sitemap.xml
