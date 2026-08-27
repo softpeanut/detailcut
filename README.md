@@ -2,6 +2,20 @@
 
 DetailCut slices a long product-detail image into numbered JPG files and one ZIP. It searches backward from each requested maximum height for a visually quiet horizontal seam, while preserving contiguous output rows. Processing is local to the browser.
 
+**[무료로 바로 사용하기](https://softpeanut.github.io/detailcut/)** · [상세페이지 이미지 분할 가이드](https://softpeanut.github.io/detailcut/guide.html)
+
+긴 스마트스토어·오픈마켓 상세 이미지를 단순히 같은 높이에서 자르지 않고, 목표 높이 직전의 비교적 조용한 가로 경계를 찾아 나눕니다. 결과는 `01`, `02`, `03` 순서의 JPG와 ZIP으로 내려받습니다. 이미지 디코딩부터 다운로드까지 브라우저 안에서 처리되며 서버 업로드 경로가 없습니다.
+
+![DetailCut 미리보기](cover.png)
+
+## 무료판 사용법
+
+1. 긴 JPG, PNG 또는 WebP 이미지 1개를 선택합니다.
+2. 게시하려는 곳의 최신 안내에 맞춰 출력 폭과 최대 높이를 입력합니다.
+3. `JPG ZIP 만들기`를 누르고 결과 조각의 모든 위·아래 경계를 확인합니다.
+
+자동 분할은 이미지의 의미를 이해하거나 특정 쇼핑몰의 등록 승인을 보장하지 않습니다. `860 × 5000`은 수정 가능한 시작값입니다.
+
 ## Revenue hypothesis
 
 - Buyer: Korean marketplace sellers and detail-page designers who repeatedly split long exports.

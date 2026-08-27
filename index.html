@@ -9,8 +9,11 @@
   <meta property="og:title" content="DetailCut — 긴 상세페이지, 끊김 적게 나누기">
   <meta property="og:description" content="긴 상품 상세 이미지를 조용한 경계에서 나눠 번호순 JPG ZIP으로 받으세요. 파일은 서버로 전송되지 않습니다.">
   <meta property="og:url" content="https://softpeanut.github.io/detailcut/">
+  <meta property="og:image" content="https://softpeanut.github.io/detailcut/cover.png">
+  <meta name="twitter:card" content="summary_large_image">
   <title>DetailCut — 긴 상세페이지, 끊김 적게 나누기</title>
   <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"DetailCut","url":"https://softpeanut.github.io/detailcut/","applicationCategory":"DesignApplication","operatingSystem":"Any modern browser","isAccessibleForFree":true,"description":"긴 상품 상세 이미지를 조용한 가로 경계에서 나눠 번호순 JPG ZIP으로 만드는 로컬 브라우저 도구입니다.","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"}}</script>
 </head>
 <body>
   <header>
@@ -52,9 +55,10 @@
           <input id="files" type="file" accept="image/jpeg,image/png,image/webp" hidden>
           <strong>긴 이미지를 놓으세요</strong>
           <span>JPG · PNG · WebP · 파일당 40MB 이하</span>
-          <button id="browse" class="button small" type="button">파일 선택</button>
+          <div class="drop-actions"><button id="browse" class="button small" type="button">파일 선택</button><button id="sample" class="button small secondary" type="button">샘플로 체험</button></div>
         </div>
         <div id="queue" class="queue" aria-live="polite"></div>
+        <div id="preview" class="preview" hidden><canvas id="preview-canvas" aria-label="예상 분할선 미리보기"></canvas><p id="preview-summary"></p></div>
         <button id="export" class="button export" type="button" disabled>JPG ZIP 만들기</button>
         <p id="status" class="status" role="status"></p>
       </div>
@@ -63,6 +67,11 @@
     <section class="explain">
       <div><p class="eyebrow dark">왜 필요한가</p><h2>긴 원본 하나가<br>바로 올릴 파일 묶음으로.</h2></div>
       <ol><li>가로 폭을 한 번 맞춥니다.</li><li>콘텐츠 경계가 적은 행을 찾습니다.</li><li>01, 02, 03 순서의 JPG를 ZIP으로 받습니다.</li></ol>
+    </section>
+
+    <section class="explain">
+      <div><p class="eyebrow dark">처음 사용한다면</p><h2>잘리지 않게<br>확인하는 법.</h2></div>
+      <div><p>자동 경계가 어떤 기준으로 선택되는지, 쇼핑몰에 올리기 전에 무엇을 확인해야 하는지 짧은 가이드로 정리했습니다.</p><a class="button small" href="guide.html">상세페이지 분할 가이드</a></div>
     </section>
 
     <section class="pricing">

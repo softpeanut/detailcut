@@ -52,6 +52,16 @@ P27 IF ZIP creation fails -> show archive error and stop
 P28 WRITE browser download through a temporary object URL
 P29 IF download cannot be initiated -> show download error and stop
 P30 revoke the temporary URL and show slice count plus dimensions
+P31 when the first valid file or a setting changes, debounce a local preview request
+P32 CALL decode the first image for preview
+P33   IF preview decoding fails -> hide preview and keep export available
+P34 calculate the same verified cut plan used by export
+P35 draw a bounded thumbnail and overlay every internal cut position
+P36 show predicted slice heights; release the decoded preview image
+P37 IF a newer preview request exists -> discard this result without replacing current UI
+P38 when "sample" is chosen, generate one synthetic detail image locally
+P39 IF sample encoding fails -> show sample error and keep the picker available
+P40 add the sample as the single free-edition input and run P31
 ```
 
 ## Completeness check
@@ -59,8 +69,8 @@ P30 revoke the temporary URL and show slice count plus dimensions
 - Boundary validation: P2–P4 and P7–P8.
 - Permission/authentication: intentionally absent; all processing is local and anonymous.
 - Fallible calls and writes: P5/P6, P10/P11, P21/P22, P23/P24, P26/P27, P28/P29.
+- Preview/sample failures are non-destructive and observable: P32/P33 and P38/P39.
 - Ordering: the complete cut plan is verified at P18 before any output is encoded.
-- Concurrency: one export button owns one run; controls are disabled until its terminal state.
+- Concurrency: one export button owns one run; controls are disabled until its terminal state. Preview requests use a monotonically increasing request number, so stale work cannot replace newer settings (P31/P37).
 - Privacy: no external call or persistence exists in the proposed flow.
 - Remaining browser-specific risk: very tall decoded canvases can exceed a browser's canvas limit even below the file-size cap; this must fail visibly at P11 and be documented rather than claimed supported.
-
