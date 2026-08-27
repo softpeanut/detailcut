@@ -51,15 +51,18 @@ test("Korean landing page exposes the exact use case to searchers", () => {
   assert.match(sitemap, /<lastmod>2026-08-27<\/lastmod>/);
 });
 
-test("Pro request measures purchase intent without pretending to take payment", () => {
+test("Pro order flow states payment and private delivery boundaries", () => {
   const korean = readFileSync("index.html", "utf8");
   const english = readFileSync("en.html", "utf8");
   const issueTemplate = readFileSync(".github/ISSUE_TEMPLATE/pro-interest.yml", "utf8");
-  assert.match(korean, />Pro 라이선스 요청<\/a>/);
-  assert.match(korean, /주문이나 금액을 받지 않습니다/);
-  assert.match(english, />Request a Pro license<\/a>/);
-  assert.match(english, /no order or payment is accepted yet/);
-  assert.match(issueTemplate, /id: purchase-intent/);
-  assert.match(issueTemplate, /Checkout is not live yet/);
+  assert.match(korean, />Pro 주문 요청<\/a>/);
+  assert.match(korean, /구매자 전용 비공개 GitHub 저장소/);
+  assert.match(korean, /결제 확인 전에는 파일을 전달하지 않습니다/);
+  assert.match(english, />Start a Pro order<\/a>/);
+  assert.match(english, /buyer-only private GitHub repository/);
+  assert.match(english, /Do not pay before receiving and accepting the quote/);
+  assert.match(issueTemplate, /id: order-intent/);
+  assert.match(issueTemplate, /exact sats quote/);
+  assert.match(issueTemplate, /private GitHub repository/);
   assert.doesNotMatch(issueTemplate, /type: textarea/);
 });
