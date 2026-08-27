@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
+import { readFileSync } from "node:fs";
 
 const require = createRequire(import.meta.url);
 const { slugify, scaledHeight, chooseQuietCut, verifyCuts, outputPath, crc32, zipStore } = require("./core.js");
@@ -39,4 +40,13 @@ test("CRC-32 and ZIP store produce a readable archive skeleton", () => {
   assert.equal(new DataView(zip.buffer).getUint32(0, true), 0x04034b50);
   assert.equal(new DataView(zip.buffer).getUint32(zip.length - 22, true), 0x06054b50);
   assert.throws(() => zipStore([]), RangeError);
+});
+
+test("Korean landing page exposes the exact use case to searchers", () => {
+  const html = readFileSync("index.html", "utf8");
+  const sitemap = readFileSync("sitemap.xml", "utf8");
+  assert.match(html, /<title>상세페이지 이미지 자르기·자동 분할 무료 — DetailCut<\/title>/);
+  assert.match(html, /글자와 상품 경계가 적은 지점에서 자동 분할/);
+  assert.match(html, /"featureList"/);
+  assert.match(sitemap, /<lastmod>2026-08-27<\/lastmod>/);
 });
