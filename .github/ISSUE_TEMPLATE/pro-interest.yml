@@ -1,15 +1,17 @@
-name: DetailCut Pro 라이선스 요청 / Pro license request
-description: 개인정보 없이 Pro 구매 의향과 필요한 처리량을 남깁니다.
-title: "[Pro 라이선스 요청]"
+name: DetailCut Pro 주문 요청 / Pro order request
+description: 개인정보 없이 Pro 주문 범위와 결제 견적을 요청합니다.
+title: "[Pro 주문 요청]"
 labels:
   - pro-interest
 body:
   - type: markdown
     attributes:
       value: |
-        이 이슈는 공개됩니다. 이메일, 전화번호, 쇼핑몰·고객·주문 정보, 이미지나 비공개 링크를 적지 마세요.
+        이 이슈는 공개됩니다. 이메일, 전화번호, 쇼핑몰·고객·주문 정보, 이미지나 비공개 링크를 적지 마세요. GitHub 사용자명은 이슈 작성자 정보로만 사용합니다.
 
-        Checkout is not live yet, so this request does not create an order or payment. Do not include email, contact, store, customer, order, image, or private-link information.
+        This request starts a scope check; it is not payment. After availability is confirmed, the seller posts an exact sats quote valid for 30 minutes. Do not pay before accepting that quote. The licensed ZIP is delivered through a buyer-only private GitHub repository after payment is verified.
+
+        Do not include email, contact, store, customer, order, image, payment proof, or private-link information. Terms: https://softpeanut.github.io/detailcut/terms-en.html
   - type: dropdown
     id: batch-size
     attributes:
@@ -22,13 +24,12 @@ body:
     validations:
       required: true
   - type: dropdown
-    id: purchase-intent
+    id: order-intent
     attributes:
-      label: ₩12,900 1회 구매 의향 / One-time purchase intent
+      label: ₩12,900 출시가 주문 상태 / KRW 12,900 launch-price order status
       options:
-        - 결제가 열리면 구매할 의향이 있습니다 / Likely to buy when checkout opens
-        - 결제·환불 조건을 먼저 확인하고 싶습니다 / Need payment and refund terms first
-        - 기능만 관심 있습니다 / Feature interest only
+        - 정확한 sats 견적을 받고 구매하고 싶습니다 / Ready to receive an exact sats quote
+        - 결제·전달·환불 조건을 먼저 확인하고 싶습니다 / Need terms clarified first
     validations:
       required: true
   - type: checkboxes
@@ -36,5 +37,9 @@ body:
     attributes:
       label: 확인
       options:
-        - label: 아직 주문·결제가 아니라는 점을 이해했고, 개인정보나 비공개 자료를 작성하지 않았습니다.
+        - label: 이 요청 자체는 결제가 아니며, 견적을 수락하기 전 송금하지 않겠습니다.
+          required: true
+        - label: 구매자 전용 비공개 GitHub 저장소 초대로 파일을 전달받는 데 동의합니다.
+          required: true
+        - label: 개인정보, 이미지, 결제 증빙 또는 비공개 자료를 작성하지 않았습니다.
           required: true
