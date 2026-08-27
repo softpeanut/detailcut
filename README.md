@@ -2,11 +2,22 @@
 
 DetailCut slices a long product-detail image into numbered JPG files and one ZIP. It searches backward from each requested maximum height for a visually quiet horizontal seam, while preserving contiguous output rows. Processing is local to the browser.
 
+**[Use DetailCut in English](https://softpeanut.github.io/detailcut/en.html)** · [Practical splitting guide](https://softpeanut.github.io/detailcut/guide-en.html)
+
 **[무료로 바로 사용하기](https://softpeanut.github.io/detailcut/)** · [상세페이지 이미지 분할 가이드](https://softpeanut.github.io/detailcut/guide.html)
 
-긴 스마트스토어·오픈마켓 상세 이미지를 단순히 같은 높이에서 자르지 않고, 목표 높이 직전의 비교적 조용한 가로 경계를 찾아 나눕니다. 결과는 `01`, `02`, `03` 순서의 JPG와 ZIP으로 내려받습니다. 이미지 디코딩부터 다운로드까지 브라우저 안에서 처리되며 서버 업로드 경로가 없습니다.
+![DetailCut showing two planned slices from the built-in sample](demo-en.png)
 
-![DetailCut 미리보기](cover.png)
+## Quick start
+
+1. Choose one long JPG, PNG, or WebP image, or run the built-in sample.
+2. Set an output width and maximum slice height based on the destination's current requirements.
+3. Inspect the suggested cut lines, create the ZIP, and review every output boundary before publishing.
+
+The free tool runs locally in the browser, with no upload path or account. Automatic cuts preserve
+contiguous rows, but they do not understand text or product meaning.
+
+긴 스마트스토어·오픈마켓 상세 이미지를 단순히 같은 높이에서 자르지 않고, 목표 높이 직전의 비교적 조용한 가로 경계를 찾아 나눕니다. 결과는 `01`, `02`, `03` 순서의 JPG와 ZIP으로 내려받습니다. 이미지 디코딩부터 다운로드까지 브라우저 안에서 처리되며 서버 업로드 경로가 없습니다.
 
 ## 무료판 사용법
 
