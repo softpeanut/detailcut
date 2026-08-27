@@ -27,6 +27,26 @@ try {
   if (sampleErrors.length) throw new Error(`Sample page errors: ${sampleErrors.join(" | ")}`);
   await samplePage.close();
 
+  const englishPage = await browser.newPage({ acceptDownloads: true });
+  const englishErrors = [];
+  englishPage.on("pageerror", (error) => englishErrors.push(error.message));
+  await englishPage.goto(pathToFileURL(path.resolve("en.html")).href);
+  const emptyEnglishStatus = await englishPage.locator("#status").textContent();
+  if (!emptyEnglishStatus.includes("Choose an image")) throw new Error(`Unexpected English initial status: ${emptyEnglishStatus}`);
+  await englishPage.locator("#sample").click();
+  await englishPage.locator("#preview:not([hidden])").waitFor({ state: "visible" });
+  const englishPreview = await englishPage.locator("#preview-summary").textContent();
+  if (!englishPreview.includes("Estimated 2 slices")) throw new Error(`Unexpected English preview: ${englishPreview}`);
+  const englishDownloadPromise = englishPage.waitForEvent("download");
+  await englishPage.locator("#export").click();
+  const englishDownload = await englishDownloadPromise;
+  await englishDownload.saveAs(`${output}.en.zip`);
+  await englishPage.waitForFunction(() => document.getElementById("status").dataset.kind === "success");
+  const englishStatus = await englishPage.locator("#status").textContent();
+  if (!englishStatus.includes("Split 1 image into 2 JPG files")) throw new Error(`Unexpected English completion status: ${englishStatus}`);
+  if (englishErrors.length) throw new Error(`English page errors: ${englishErrors.join(" | ")}`);
+  await englishPage.close();
+
   const page = await browser.newPage({ acceptDownloads: true });
   const pageErrors = [];
   page.on("pageerror", (error) => pageErrors.push(error.message));
