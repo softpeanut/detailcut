@@ -1,0 +1,28 @@
+name: DetailCut Pro 출시 알림 요청
+description: 개인정보 없이 Pro 구매 의향을 남깁니다.
+title: "[Pro 관심] 출시 알림 요청"
+labels:
+  - pro-interest
+body:
+  - type: markdown
+    attributes:
+      value: |
+        관심을 남겨주셔서 감사합니다. 이 이슈는 공개됩니다. 이메일, 전화번호, 쇼핑몰 정보 등 개인정보를 적지 마세요.
+  - type: dropdown
+    id: batch-size
+    attributes:
+      label: 한 번에 처리하려는 이미지 수
+      options:
+        - 2–5개
+        - 6–10개
+        - 11–20개
+        - 20개 초과
+    validations:
+      required: true
+  - type: checkboxes
+    id: intent
+    attributes:
+      label: 확인
+      options:
+        - label: 결제가 열리면 공개 GitHub 알림으로 확인하겠습니다. 개인정보는 작성하지 않았습니다.
+          required: true
