@@ -31,8 +31,8 @@ contiguous rows, but they do not understand text or product meaning.
 
 - Buyer: Korean marketplace sellers and detail-page designers who repeatedly split long exports.
 - Free proof: one real image, custom width/height, smart seam selection, real ZIP.
-- Paid asset: ₩12,900 launch-price, one-time offline batch edition for up to 20 images.
-- The seller-held paid asset is complete at `dist/detailcut-pro-v1.0.0.zip`. A buyer requests an order without posting private data, receives a short-lived exact sats quote, and pays only after accepting the written terms. Verified purchases are delivered by inviting the buyer's GitHub handle to a buyer-only private repository containing the licensed archive and checksum.
+- Paid asset: 15,000 sat Personal license for one user or 100,000 sat Team license for up to 10 named users in one legal organization; both are one-time offline batch editions for up to 20 images.
+- The seller-held paid asset is complete at `dist/detailcut-pro-v1.0.0.zip`. A buyer requests an order without posting private data, receives a short-lived issue-bound invoice matching the selected tier, and pays only after accepting the written terms. Verified purchases are delivered by inviting the buyer's GitHub handle to a buyer-only private repository containing the licensed archive and checksum.
 - Revenue is zero until a non-self purchase settles and is withdrawable.
 
 The product borrows the useful constraints observed in THE Hackathon: a short build, immediately visible output, a free proof before payment, and a five-to-seven-day market test. It does not copy a participant's product or brand.
