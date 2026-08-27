@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Split a long product-detail image near quieter horizontal seams and download numbered JPG files in one ZIP. Processing stays in your browser.">
+  <link rel="canonical" href="https://softpeanut.github.io/detailcut/en.html">
+  <link rel="alternate" hreflang="ko" href="https://softpeanut.github.io/detailcut/">
+  <link rel="alternate" hreflang="en" href="https://softpeanut.github.io/detailcut/en.html">
+  <link rel="alternate" hreflang="x-default" href="https://softpeanut.github.io/detailcut/en.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DetailCut — split long product images at quieter seams">
+  <meta property="og:description" content="Preview cut lines, split one long image, and download numbered JPG files in one ZIP. No image upload.">
+  <meta property="og:url" content="https://softpeanut.github.io/detailcut/en.html">
+  <meta property="og:image" content="https://softpeanut.github.io/detailcut/cover.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>DetailCut — split long product-detail images locally</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"DetailCut","url":"https://softpeanut.github.io/detailcut/en.html","applicationCategory":"DesignApplication","operatingSystem":"Any modern browser","isAccessibleForFree":true,"description":"Split a long product-detail image near quieter horizontal seams and download numbered JPG files in one ZIP without uploading the source.","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"}}</script>
+</head>
+<body>
+  <header>
+    <p class="eyebrow">LOCAL-ONLY DETAIL IMAGE SLICER</p>
+    <h1>Do not cut a long detail page<br><em>at an arbitrary row.</em></h1>
+    <p class="lead">DetailCut searches near your target height for a quieter horizontal seam, then exports contiguous, numbered JPG slices in one ZIP. Your source image has no upload path.</p>
+    <a class="button" href="#tool">Split one image for free</a>
+  </header>
+
+  <main>
+    <section class="proof" aria-label="Product properties">
+      <span>No image upload</span><span>No missing or repeated rows</span><span>Numbered ZIP</span>
+    </section>
+
+    <section id="tool" class="workspace">
+      <div class="panel settings">
+        <div class="section-title"><p class="eyebrow dark">01 · Settings</p><span id="edition" class="edition"></span></div>
+        <label>Output name
+          <input id="name" value="my-detail-page" maxlength="60" autocomplete="off">
+        </label>
+        <div class="grid">
+          <label>Output width (px)
+            <input id="width" type="number" min="320" max="2400" step="1" value="860">
+          </label>
+          <label>Maximum slice height (px)
+            <input id="height" type="number" min="800" max="10000" step="1" value="5000">
+          </label>
+        </div>
+        <label>JPG quality <output id="quality-value">90%</output>
+          <input id="quality" type="range" min="60" max="100" value="90">
+        </label>
+        <label class="toggle"><input id="smart-cut" type="checkbox" checked><span><b>Find a quieter seam</b><small>Search the final 30% before each maximum height for a row with less visual change.</small></span></label>
+        <details><summary>What does DetailCut guarantee?</summary><p>Output rows remain contiguous, without gaps or overlap. Automatic slicing does not understand image meaning, so inspect every result before publishing it.</p></details>
+      </div>
+
+      <div class="panel input-panel">
+        <p class="eyebrow dark">02 · Image</p>
+        <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="Choose a long product-detail image">
+          <input id="files" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+          <strong>Drop a long image here</strong>
+          <span>JPG · PNG · WebP · Up to 40 MB</span>
+          <div class="drop-actions"><button id="browse" class="button small" type="button">Choose file</button><button id="sample" class="button small secondary" type="button">Try the sample</button></div>
+        </div>
+        <div id="queue" class="queue" aria-live="polite"></div>
+        <div id="preview" class="preview" hidden><canvas id="preview-canvas" aria-label="Preview of estimated cut boundaries"></canvas><p id="preview-summary"></p></div>
+        <button id="export" class="button export" type="button" disabled>Create JPG ZIP</button>
+        <p id="status" class="status" role="status"></p>
+      </div>
+    </section>
+
+    <section class="explain">
+      <div><p class="eyebrow dark">Why it helps</p><h2>One long source becomes<br>a ready-to-review file set.</h2></div>
+      <ol><li>Scale the source to one output width.</li><li>Look for a quieter row near each limit.</li><li>Download JPG files ordered 01, 02, 03.</li></ol>
+    </section>
+
+    <section class="pricing">
+      <div><p class="eyebrow">BATCH EDITION</p><h2>When you have several products</h2><p>The offline Pro edition processes up to 20 images at once, keeps each source in its own folder, and uses the same quiet-seam planner. No server, API, or subscription.</p></div>
+      <div class="price"><small>Planned launch price · One-time</small><strong>KRW 12,900</strong><p>Checkout onboarding is still in progress. No order or payment is accepted before the live checkout is connected.</p><a class="button interest" href="https://github.com/softpeanut/detailcut/issues/new?template=pro-interest.yml" rel="nofollow">Request a Pro launch notification</a><small class="privacy-note">This opens a public GitHub issue. Do not include email, contact, store, or order information.</small></div>
+    </section>
+  </main>
+
+  <footer>DetailCut is an independent tool and is not affiliated with any marketplace. Verify requirements and every output before publishing. · <a href="terms.html">Terms (Korean)</a> · <a href="index.html" lang="ko">한국어</a></footer>
+  <script src="core.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

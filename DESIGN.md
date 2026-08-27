@@ -62,6 +62,9 @@ P37 IF a newer preview request exists -> discard this result without replacing c
 P38 when "sample" is chosen, generate one synthetic detail image locally
 P39 IF sample encoding fails -> show sample error and keep the picker available
 P40 add the sample as the single free-edition input and run P31
+P41 select Korean or English interface copy once from the document language
+P42 route every dynamic status, validation error, and queue action through that copy
+P43 keep P1-P40 data flow and output bytes independent of the selected language
 ```
 
 ## Completeness check
@@ -70,6 +73,7 @@ P40 add the sample as the single free-edition input and run P31
 - Permission/authentication: intentionally absent; all processing is local and anonymous.
 - Fallible calls and writes: P5/P6, P10/P11, P21/P22, P23/P24, P26/P27, P28/P29.
 - Preview/sample failures are non-destructive and observable: P32/P33 and P38/P39.
+- Localization changes copy only; it cannot change file limits, cut planning, encoding, or archive paths (P41-P43).
 - Ordering: the complete cut plan is verified at P18 before any output is encoded.
 - Concurrency: one export button owns one run; controls are disabled until its terminal state. Preview requests use a monotonically increasing request number, so stale work cannot replace newer settings (P31/P37).
 - Privacy: no external call or persistence exists in the proposed flow.
