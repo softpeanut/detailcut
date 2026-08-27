@@ -7,6 +7,8 @@
   const maxBytes = 40 * 1024 * 1024;
   let files = [];
   let running = false;
+  let previewRequest = 0;
+  let previewTimer;
 
   const $ = (id) => document.getElementById(id);
   const fileInput = $("files");
@@ -41,8 +43,14 @@
       return row;
     }));
     exportButton.disabled = running || files.length === 0;
-    if (!files.length) setStatus(`이미지를 선택하세요. ${edition.name} 버전은 최대 ${edition.maxFiles}개를 처리합니다.`);
-    else setStatus(`${files.length}개 이미지 준비됨 · 파일은 이 브라우저를 벗어나지 않습니다.`);
+    if (!files.length) {
+      previewRequest += 1;
+      $("preview").hidden = true;
+      setStatus(`이미지를 선택하세요. ${edition.name} 버전은 최대 ${edition.maxFiles}개를 처리합니다.`);
+    } else {
+      setStatus(`${files.length}개 이미지 준비됨 · 파일은 이 브라우저를 벗어나지 않습니다.`);
+      schedulePreview();
+    }
   }
 
   function addFiles(list) {
@@ -147,6 +155,76 @@
     return { cuts, scale, totalHeight };
   }
 
+  async function renderPreview(request) {
+    if (!files.length) return;
+    let image;
+    try {
+      const settings = readSettings();
+      image = await decodeImage(files[0]);
+      const { cuts, totalHeight } = planCuts(image, settings);
+      if (request !== previewRequest) return;
+      const ratio = Math.min(1, 320 / settings.width, 520 / totalHeight);
+      const canvas = $("preview-canvas");
+      canvas.width = Math.max(1, Math.round(settings.width * ratio));
+      canvas.height = Math.max(1, Math.round(totalHeight * ratio));
+      const context = canvas.getContext("2d", { alpha: false });
+      if (!context) throw new Error("미리보기 Canvas를 만들지 못했습니다.");
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      context.strokeStyle = "#ff5a36";
+      context.lineWidth = Math.max(2, Math.round(ratio * 6));
+      context.setLineDash([8, 5]);
+      for (const slice of cuts.slice(0, -1)) {
+        const y = Math.min(canvas.height - 1, Math.round(slice.end * ratio));
+        context.beginPath();
+        context.moveTo(0, y);
+        context.lineTo(canvas.width, y);
+        context.stroke();
+      }
+      $("preview-summary").textContent = `예상 ${cuts.length}개 · 높이 ${cuts.map((slice) => `${slice.end - slice.start}px`).join(" / ")} · 주황 점선이 분할 경계입니다.`;
+      $("preview").hidden = false;
+    } catch (error) {
+      if (request === previewRequest) {
+        $("preview").hidden = true;
+        $("preview-summary").textContent = `미리보기를 만들지 못했습니다: ${error.message}`;
+      }
+    } finally {
+      if (image && typeof image.close === "function") image.close();
+    }
+  }
+
+  function schedulePreview() {
+    const request = ++previewRequest;
+    window.clearTimeout(previewTimer);
+    previewTimer = window.setTimeout(() => renderPreview(request), 180);
+  }
+
+  async function addSample() {
+    try {
+      const canvas = document.createElement("canvas");
+      canvas.width = 430;
+      canvas.height = 3600;
+      const context = canvas.getContext("2d");
+      if (!context) throw new Error("샘플 Canvas를 만들지 못했습니다.");
+      context.fillStyle = "#f5f0e7";
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      const sections = [[180, 1250, "FIRST DETAIL"], [1450, 2600, "SECOND DETAIL"], [2800, 3420, "SIZE & INFO"]];
+      for (const [top, bottom, label] of sections) {
+        context.fillStyle = top === 1450 ? "#d8ff54" : "#ff5a36";
+        context.fillRect(28, top, canvas.width - 56, bottom - top);
+        context.fillStyle = "#161616";
+        context.font = "bold 32px sans-serif";
+        context.fillText(label, 52, top + 70);
+      }
+      const blob = await new Promise((resolve, reject) => canvas.toBlob((value) => value ? resolve(value) : reject(new Error("샘플 PNG를 만들지 못했습니다.")), "image/png"));
+      files = [new File([blob], "detailcut-sample.png", { type: "image/png" })];
+      canvas.width = 1;
+      canvas.height = 1;
+      renderQueue();
+    } catch (error) {
+      setStatus(`샘플을 만들지 못했습니다: ${error.message}`, "error");
+    }
+  }
+
   async function exportImage(image, settings, fileIndex) {
     const { cuts, scale, totalHeight } = planCuts(image, settings);
     const entries = [];
@@ -207,12 +285,17 @@
   }
 
   $("browse").onclick = () => fileInput.click();
+  const sampleButton = $("sample");
+  if (sampleButton) sampleButton.onclick = (event) => {
+    event.stopPropagation();
+    addSample();
+  };
   fileInput.onchange = () => {
     addFiles(fileInput.files);
     fileInput.value = "";
   };
   dropzone.onclick = (event) => {
-    if (event.target.id !== "browse") fileInput.click();
+    if (!event.target.closest("button")) fileInput.click();
   };
   dropzone.onkeydown = (event) => {
     if (event.key === "Enter" || event.key === " ") {
@@ -231,6 +314,7 @@
   dropzone.addEventListener("drop", (event) => addFiles(event.dataTransfer.files));
   exportButton.onclick = runExport;
   $("quality").oninput = (event) => $("quality-value").textContent = `${event.target.value}%`;
+  for (const id of ["width", "height", "quality", "smart-cut"]) $(id).addEventListener("input", schedulePreview);
   $("edition").textContent = `${edition.name} · 최대 ${edition.maxFiles}개`;
   if (edition.maxFiles > 1) fileInput.multiple = true;
   renderQueue();

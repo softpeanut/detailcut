@@ -11,6 +11,22 @@ const browser = await chromium.launch({
 });
 
 try {
+  const samplePage = await browser.newPage({ acceptDownloads: true });
+  const sampleErrors = [];
+  samplePage.on("pageerror", (error) => sampleErrors.push(error.message));
+  await samplePage.goto(pathToFileURL(path.resolve("index.html")).href);
+  await samplePage.locator("#sample").click();
+  await samplePage.locator("#preview:not([hidden])").waitFor({ state: "visible" });
+  const sampleSummary = await samplePage.locator("#preview-summary").textContent();
+  if (!sampleSummary.includes("예상 2개")) throw new Error(`Unexpected sample preview: ${sampleSummary}`);
+  const sampleDownloadPromise = samplePage.waitForEvent("download");
+  await samplePage.locator("#export").click();
+  const sampleDownload = await sampleDownloadPromise;
+  await sampleDownload.saveAs(`${output}.sample.zip`);
+  await samplePage.waitForFunction(() => document.getElementById("status").dataset.kind === "success");
+  if (sampleErrors.length) throw new Error(`Sample page errors: ${sampleErrors.join(" | ")}`);
+  await samplePage.close();
+
   const page = await browser.newPage({ acceptDownloads: true });
   const pageErrors = [];
   page.on("pageerror", (error) => pageErrors.push(error.message));
@@ -37,6 +53,9 @@ try {
     input.dispatchEvent(new Event("change", { bubbles: true }));
   });
   await page.locator("#export").waitFor({ state: "visible" });
+  await page.locator("#preview:not([hidden])").waitFor({ state: "visible" });
+  const previewSummary = await page.locator("#preview-summary").textContent();
+  if (!previewSummary.includes("예상 3개")) throw new Error(`Unexpected preview: ${previewSummary}`);
   const downloadPromise = page.waitForEvent("download");
   await page.locator("#export").click();
   const download = await downloadPromise;

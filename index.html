@@ -55,9 +55,10 @@
           <input id="files" type="file" accept="image/jpeg,image/png,image/webp" hidden>
           <strong>긴 이미지를 놓으세요</strong>
           <span>JPG · PNG · WebP · 파일당 40MB 이하</span>
-          <button id="browse" class="button small" type="button">파일 선택</button>
+          <div class="drop-actions"><button id="browse" class="button small" type="button">파일 선택</button><button id="sample" class="button small secondary" type="button">샘플로 체험</button></div>
         </div>
         <div id="queue" class="queue" aria-live="polite"></div>
+        <div id="preview" class="preview" hidden><canvas id="preview-canvas" aria-label="예상 분할선 미리보기"></canvas><p id="preview-summary"></p></div>
         <button id="export" class="button export" type="button" disabled>JPG ZIP 만들기</button>
         <p id="status" class="status" role="status"></p>
       </div>
