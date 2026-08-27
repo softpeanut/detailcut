@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A practical checklist for splitting long product-detail images without cutting through text, products, or important visual boundaries.">
+  <link rel="canonical" href="https://softpeanut.github.io/detailcut/guide-en.html">
+  <link rel="alternate" hreflang="ko" href="https://softpeanut.github.io/detailcut/guide.html">
+  <link rel="alternate" hreflang="en" href="https://softpeanut.github.io/detailcut/guide-en.html">
+  <link rel="alternate" hreflang="x-default" href="https://softpeanut.github.io/detailcut/guide-en.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How to split long product-detail images — DetailCut">
+  <meta property="og:description" content="Check cut boundaries, dimensions, output order, and file size before publishing a long product page.">
+  <meta property="og:url" content="https://softpeanut.github.io/detailcut/guide-en.html">
+  <meta property="og:image" content="https://softpeanut.github.io/detailcut/cover-en.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://softpeanut.github.io/detailcut/cover-en.png">
+  <title>How to split long product-detail images without awkward cuts</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I split a long product image for free?","acceptedAnswer":{"@type":"Answer","text":"Yes. DetailCut's free edition splits one JPG, PNG, or WebP image in your browser and downloads numbered JPG files in a ZIP."}},{"@type":"Question","name":"Does DetailCut upload my image?","acceptedAnswer":{"@type":"Answer","text":"No. The free edition has no image upload server, analytics API, cookie, or storage path. Processing happens in your browser."}},{"@type":"Question","name":"Which image dimensions should I use for a marketplace?","acceptedAnswer":{"@type":"Answer","text":"Marketplace requirements can change. Check the seller documentation for current width, size, and format limits, then enter those values yourself. The defaults do not guarantee acceptance."}},{"@type":"Question","name":"How does automatic seam selection work?","acceptedAnswer":{"@type":"Answer","text":"DetailCut searches the final portion before each maximum height for a horizontal row with less visual change. It does not understand image meaning, so inspect every boundary before publishing."}}]}</script>
+  <style>.article{max-width:820px;margin:auto;padding:6rem 1.25rem}.article h1{color:var(--ink);font-size:clamp(2.7rem,7vw,5.8rem);line-height:.98}.article h2{font-size:2rem;margin-top:3.5rem}.article p,.article li{font-size:1.05rem;line-height:1.8}.article .note{border:2px solid var(--line);background:#fff;padding:1.25rem;box-shadow:5px 5px 0 var(--orange);margin:2rem 0}.article nav{margin-bottom:3rem}.article code{background:#ebe4d8;padding:.15rem .35rem}</style>
+</head>
+<body>
+  <article class="article">
+    <nav><a class="button small" href="en.html">← DetailCut free tool</a></nav>
+    <p class="eyebrow dark">PRACTICAL GUIDE</p>
+    <h1>Where should a long<br>product image be split?</h1>
+    <p>A storefront may require several files even when the detail page was designed as one long image. The useful question is not how to make equal-height slices. It is how to avoid text, prices, faces, products, and other important boundaries while keeping every output within the marketplace's current limits.</p>
+
+    <h2>1. Verify the destination requirements first</h2>
+    <p>Allowed width, file size, and format vary by marketplace and can change. DetailCut's <code>860 × 5000</code> defaults are only a starting point. Check the latest seller documentation, then enter the dimensions that apply to your listing.</p>
+
+    <h2>2. Inspect every suggested boundary</h2>
+    <p>DetailCut looks near each target height for a horizontal row with less visual change. That can help it find whitespace or a quiet background, but it cannot understand the meaning of a sentence or product composition.</p>
+    <div class="note"><b>Review checklist</b><ol><li>No line of text is divided between two files.</li><li>No face or important product feature sits on a boundary.</li><li>Files 01, 02, and 03 continue in the expected order.</li><li>Each file meets the destination's size and width limits.</li></ol></div>
+
+    <h2>3. Choose smart or fixed-height cuts deliberately</h2>
+    <p>Use quieter-seam search when the design has visible space between sections. Turn it off when the source was already designed in exact-height units or every output must have a consistent height.</p>
+
+    <h2>4. Keep the editable original</h2>
+    <p>The exported slices are JPG files, so transparency and editing layers are not preserved. Keep the original PSD, PNG, or long JPG separately and treat the DetailCut ZIP as a publishing copy.</p>
+
+    <h2>If you do not want to upload the source</h2>
+    <p>The free tool performs the split and ZIP creation in the browser. It does not contain an image upload server, analytics API, cookies, or browser storage.</p>
+
+    <h2>Frequently asked questions</h2>
+    <h3>Can I split a long product image for free?</h3>
+    <p>Yes. DetailCut's free edition splits one JPG, PNG, or WebP image in your browser and downloads numbered JPG files in a ZIP.</p>
+    <h3>Does DetailCut upload my image?</h3>
+    <p>No. The free edition has no image upload server, analytics API, cookie, or storage path. Processing happens in your browser.</p>
+    <h3>Which image dimensions should I use for a marketplace?</h3>
+    <p>Check the current seller documentation for the marketplace. The defaults are starting values, not a guarantee that an upload will be accepted.</p>
+    <h3>How does automatic seam selection work?</h3>
+    <p>DetailCut searches the final portion before each maximum height for a horizontal row with less visual change. It does not understand image meaning, so inspect every boundary before publishing.</p>
+    <a class="button" href="en.html#tool">Split one image for free</a>
+  </article>
+  <footer>DetailCut is an independent tool and is not affiliated with any marketplace. · <a href="terms.html">Terms (Korean)</a> · <a href="guide.html" lang="ko">한국어 가이드</a></footer>
+</body>
+</html>
